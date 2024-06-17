@@ -1,0 +1,178 @@
+USE master
+
+CREATE DATABASE PRM392DB;
+
+-- Use the database
+USE PRM392DB;
+
+CREATE TABLE [Products] (
+	[ProductId] INT NOT NULL IDENTITY UNIQUE,
+	[PName] NVARCHAR(255) NOT NULL,
+	[Description ] TEXT,
+	[Price] DECIMAL NOT NULL,
+	[Quantity] BIGINT,
+	[CategoryId] INT,
+	[CreateAt] DATETIME,
+	PRIMARY KEY([ProductId])
+);
+GO
+
+CREATE TABLE [Users] (
+	[UserId] INT NOT NULL IDENTITY UNIQUE,
+	[Username] NVARCHAR(255) NOT NULL,
+	[Password] NVARCHAR(255) NOT NULL,
+	[FullName] NVARCHAR(255),
+	[Gender] NVARCHAR(255),
+	[Email] NVARCHAR(255),
+	[Phone] NVARCHAR(255),
+	[CreateAt] DATETIME,
+	PRIMARY KEY([UserId])
+);
+GO
+
+CREATE TABLE [ProductImages] (
+	[ImageId] INT NOT NULL IDENTITY UNIQUE,
+	[ProductId] INT,
+	[ImageUrl] TEXT,
+	[CreateAt] DATETIME,
+	PRIMARY KEY([ImageId])
+);
+GO
+
+CREATE TABLE [Categories] (
+	[CategoryId] INT NOT NULL IDENTITY UNIQUE,
+	[CName] NVARCHAR(255) NOT NULL,
+	[Description] TEXT,
+	[CreateAt] DATETIME,
+	PRIMARY KEY([CategoryId])
+);
+GO
+
+CREATE TABLE [Role] (
+	[RoleId] INT NOT NULL IDENTITY UNIQUE,
+	[RName] NVARCHAR(255) NOT NULL,
+	[Description] TEXT,
+	[CreateAt] DATETIME,
+	PRIMARY KEY([RoleId])
+);
+GO
+
+CREATE TABLE [RoleUsers] (
+	[RoleId] INT NOT NULL IDENTITY UNIQUE,
+	[UserId] INT NOT NULL,
+	PRIMARY KEY([RoleId], [UserId])
+);
+GO
+
+CREATE TABLE [Orders] (
+	[OrderId] INT NOT NULL IDENTITY UNIQUE,
+	[UserId] INT,
+	[IntoMoney] DECIMAL,
+	[TotalPrice] DECIMAL,
+	[OrderCode] NVARCHAR(255),
+	[PaymentMethodId] INT,
+	[ShipmentDetailId] INT,
+	[Status] INT,
+	[TranSportFee] DECIMAL,
+	[CreateAt] DATETIME,
+	PRIMARY KEY([OrderId])
+);
+GO
+
+CREATE TABLE [OrderDetails] (
+	[Id] INT NOT NULL IDENTITY UNIQUE,
+	[ProductId] INT,
+	[Quantity] INT,
+	[Price] DECIMAL,
+	[OrderId] INT,
+	PRIMARY KEY([Id])
+);
+GO
+
+CREATE TABLE [Carts] (
+	[CartId] INT NOT NULL IDENTITY UNIQUE,
+	[UserId] INT NOT NULL,
+	PRIMARY KEY([CartId], [UserId])
+);
+GO
+
+CREATE TABLE [CartItems] (
+	[Id] INT NOT NULL IDENTITY UNIQUE,
+	[ProductId] INT NOT NULL,
+	[Quantity] INT,
+	[TotalPrice] DECIMAL,
+	[CartId] INT,
+	[Status] BIT,
+	PRIMARY KEY([Id])
+);
+GO
+
+CREATE TABLE [ShipmentDetails] (
+	[Id] INT NOT NULL IDENTITY UNIQUE,
+	[FullName] NVARCHAR(255),
+	[Address] TEXT,
+	[PhoneNumber] NVARCHAR(255),
+	[UserId] INT,
+	PRIMARY KEY([Id])
+);
+GO
+
+CREATE TABLE [PaymentMethods] (
+	[Id] INT NOT NULL IDENTITY UNIQUE,
+	[PaymentMethodName] NVARCHAR(255),
+	PRIMARY KEY([Id])
+);
+GO
+
+ALTER TABLE [ProductImages]
+ADD FOREIGN KEY([ProductId]) REFERENCES [Products]([ProductId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Products]
+ADD FOREIGN KEY([CategoryId]) REFERENCES [Categories]([CategoryId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [RoleUsers]
+ADD FOREIGN KEY([RoleId]) REFERENCES [Role]([RoleId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [CartItems]
+ADD FOREIGN KEY([CartId]) REFERENCES [Carts]([CartId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Carts]
+ADD FOREIGN KEY([UserId]) REFERENCES [Users]([UserId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [ShipmentDetails]
+ADD FOREIGN KEY([UserId]) REFERENCES [Users]([UserId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [OrderDetails]
+ADD FOREIGN KEY([OrderId]) REFERENCES [Orders]([OrderId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [RoleUsers]
+ADD FOREIGN KEY([UserId]) REFERENCES [Users]([UserId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Orders]
+ADD FOREIGN KEY([PaymentMethodId]) REFERENCES [PaymentMethods]([Id])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Orders]
+ADD FOREIGN KEY([ShipmentDetailId]) REFERENCES [ShipmentDetails]([Id])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [Orders]
+ADD FOREIGN KEY([UserId]) REFERENCES [Users]([UserId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [OrderDetails]
+ADD FOREIGN KEY([ProductId]) REFERENCES [Products]([ProductId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
+ALTER TABLE [CartItems]
+ADD FOREIGN KEY([ProductId]) REFERENCES [Products]([ProductId])
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+GO
