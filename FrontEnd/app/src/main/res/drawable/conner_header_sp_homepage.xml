@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Nền màu chính -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#E2A48B"/>
+        </shape>
+    </item>
+
+    <!-- Góc trên bên phải chéo -->
+    <item>
+        <rotate
+            android:fromDegrees="-80"
+            android:pivotX="100%"
+            android:pivotY="0%">
+            <shape android:shape="rectangle">
+                <solid android:color="#FFFFFF"/>
+                <size android:width="20dp" android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+
+    <!-- Góc dưới bên trái chéo -->
+    <item>
+        <rotate
+            android:fromDegrees="-80"
+            android:pivotX="0%"
+            android:pivotY="100%">
+            <shape android:shape="rectangle">
+                <solid android:color="#FFFFFF"/>
+                <size android:width="20dp" android:height="20dp"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

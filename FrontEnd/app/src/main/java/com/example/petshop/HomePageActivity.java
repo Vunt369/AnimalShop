@@ -1,7 +1,7 @@
 package com.example.petshop;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,21 +16,32 @@ import com.example.petshop.categories.CategoryAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
+
     ArrayList<Category> categoriesList;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_home_page);
 
-        setContentView(R.layout.activity_main);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rvCategories = findViewById(R.id.recycle_menu);
+
+
+        RecyclerView rvCategories = findViewById(R.id.recycle_menu_categories);
 
         categoriesList = new ArrayList<>();
-
+        categoriesList.add(new Category(R.drawable.dochoi_thucung));
+        categoriesList.add(new Category(R.drawable.thucan_cun));
+        categoriesList.add(new Category(R.drawable.thucan_meo));
+        categoriesList.add(new Category(R.drawable.chau_cat_vesinh));
 
         CategoryAdapter adapter = new CategoryAdapter(categoriesList);
         rvCategories.setAdapter(adapter);
-        rvCategories.setLayoutManager(new LinearLayoutManager(this));
+        rvCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
+
+
+
+
+
 }

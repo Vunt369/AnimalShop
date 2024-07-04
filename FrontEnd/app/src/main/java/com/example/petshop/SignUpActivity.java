@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         edUsername = (EditText) findViewById(R.id.input_Name);
         edPass = (EditText) findViewById(R.id.input_pass);
-        btnAlreadyAccount = (Button) findViewById(R.id.btn_signin);
+        btnAlreadyAccount = (Button) findViewById(btn_signup);
         btnSignUp = (Button) findViewById(R.id.btn_signup) ;
         edConfirm = (EditText) findViewById(input_confirm_pass);
 
