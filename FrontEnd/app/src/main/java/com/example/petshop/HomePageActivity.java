@@ -1,7 +1,9 @@
 package com.example.petshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.petshop.cart.CartActivity;
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
 
@@ -24,6 +27,14 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
+        ImageView imgCart = findViewById(R.id.img_cart);
+        imgCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
