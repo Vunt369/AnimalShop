@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +44,8 @@ public class CartAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.cart_item, parent, false);
         }
-
+        ImageView productImage = convertView.findViewById(R.id.productImage);
+        TextView productPrice = convertView.findViewById(R.id.productPrice);
         TextView productName = convertView.findViewById(R.id.productName);
         TextView productQuantity = convertView.findViewById(R.id.productQuantity);
         Button increaseButton = convertView.findViewById(R.id.increaseButton);
@@ -51,8 +53,10 @@ public class CartAdapter extends BaseAdapter {
         Button deleteButton = convertView.findViewById(R.id.deleteButton);
 
         CartItem item = cartItems.get(position);
+        productImage.setImageResource(item.getImageResource());
         productName.setText(item.getProductName());
         productQuantity.setText(String.valueOf(item.getQuantity()));
+        productPrice.setText("Price: $" + item.getProductPrice());
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override

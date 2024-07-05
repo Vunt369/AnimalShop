@@ -29,6 +29,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     ArrayList<Category> categoriesList;
     ArrayList<Product> productsList;
+    private ProductAdapter adapterProduct;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -38,12 +39,17 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
+                intent.putStringArrayListExtra("cart", adapterProduct.getCartItems());
                 startActivity(intent);
             }
         });
+        setupCategories();
+        setupProducts();
 
 
+    }
 
+    private void setupCategories() {
         RecyclerView rvCategories = findViewById(R.id.recycle_menu_categories);
 
         categoriesList = new ArrayList<>();
@@ -55,7 +61,9 @@ public class HomePageActivity extends AppCompatActivity {
         CategoryAdapter adapter = new CategoryAdapter(categoriesList);
         rvCategories.setAdapter(adapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
 
+    private void setupProducts() {
         RecyclerView rvProducts = findViewById(R.id.recycler_products);
         productsList = new ArrayList<>();
         productsList.add(new Product(R.drawable.yem_co, "Yếm cổ đáng yêu", 35000));
@@ -67,16 +75,9 @@ public class HomePageActivity extends AppCompatActivity {
         productsList.add(new Product(R.drawable.balo_cho_meo, "Balô cho mèo", 200000));
         productsList.add(new Product(R.drawable.bo_do_choi_cho_meo, "Bộ đồ chơi cho mèo", 200000));
 
-        ProductAdapter adapterProduct = new ProductAdapter(productsList);
+        adapterProduct = new ProductAdapter(productsList, this);
         rvProducts.setAdapter(adapterProduct);
         rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
-
-
-
     }
-
-
-
-
 
 }

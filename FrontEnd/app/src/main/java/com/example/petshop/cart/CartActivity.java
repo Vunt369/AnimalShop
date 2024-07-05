@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
 
@@ -32,13 +34,18 @@ public class CartActivity extends AppCompatActivity {
         ArrayList<String> cart = getIntent().getStringArrayListExtra("cart");
         if(cart!=null){
             for (String item : cart) {
-                cartItems.add(new CartItem(item, 1));
+                int imageResource = getImageResourceForProduct(item);
+                int productPrice = getProductPrice(item);
+                cartItems.add(new CartItem(item, 1, imageResource, productPrice));
             }
         }
 
 
         cartAdapter = new CartAdapter(this, cartItems);
         cartListView.setAdapter(cartAdapter);
+        int totalCost = calculateTotalCost(cartItems);
+        TextView totalCostTextView = findViewById(R.id.totalCostTextView);
+        totalCostTextView.setText("Total Cost: $" + totalCost);
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +54,58 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private int getProductPrice(String productName){
+        switch (productName) {
+            case "Yếm cổ đáng yêu":
+                return 35000;
+            case "Thức ăn hạt khô":
+                return 230000;
+            case "Sữa tắm JOYCR&DOLCE":
+                return 175000;
+            case "Bát ăn nghiêng":
+                return 45000;
+            case "Bánh thưởng CATNIP":
+                return 30000;
+            case "Vòng cổ kèm chuông":
+                return 35000;
+            case "Balô cho mèo":
+                return 200000;
+            case "Bộ đồ chơi cho mèo":
+                return 200000;
+            default:
+                return 0; // Default price if product name is not found
+        }
+    }
+    private int calculateTotalCost(ArrayList<CartItem> cartItems) {
+        int totalCost = 0;
+        for (CartItem item : cartItems) {
+            totalCost += item.getProductPrice() * item.getQuantity();
+        }
+        return totalCost;
+    }
+    private int getImageResourceForProduct(String productName) {
+        switch (productName) {
+            case "Yếm cổ đáng yêu":
+                return R.drawable.yem_co;
+            case "Thức ăn hạt khô":
+                return R.drawable.thuc_an_hat_kho;
+            case "Sữa tắm JOYCR&DOLCE":
+                return R.drawable.sua_tam_joyce;
+            case "Bát ăn nghiêng":
+                return R.drawable.bat_an_nghieng;
+            case "Bánh thưởng CATNIP":
+                return R.drawable.banh_thuong_catnipo;
+            case "Vòng cổ kèm chuông":
+                return R.drawable.vong_co_kem_chuong;
+            case "Balô cho mèo":
+                return R.drawable.balo_cho_meo;
+            case "Bộ đồ chơi cho mèo":
+                return R.drawable.bo_do_choi_cho_meo;
+            default:
+                // Default image resource if product name doesn't match known cases
+                return R.drawable.chan_meo_tach_nen;
+        }
     }
 
 }
