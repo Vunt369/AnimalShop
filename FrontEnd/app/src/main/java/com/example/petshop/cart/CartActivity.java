@@ -19,6 +19,7 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private Button checkoutButton;
+    private TextView totalCostTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class CartActivity extends AppCompatActivity {
 
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
+        totalCostTextView = findViewById(R.id.totalCostTextView);
 
         cartItems = new ArrayList<>();
         // Assuming cart is passed as an ArrayList<String>
@@ -41,11 +43,10 @@ public class CartActivity extends AppCompatActivity {
         }
 
 
-        cartAdapter = new CartAdapter(this, cartItems);
+        cartAdapter = new CartAdapter(this, cartItems, this::updateTotalCost);
         cartListView.setAdapter(cartAdapter);
-        int totalCost = calculateTotalCost(cartItems);
-        TextView totalCostTextView = findViewById(R.id.totalCostTextView);
-        totalCostTextView.setText("Total Cost: $" + totalCost);
+        updateTotalCost();
+
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,10 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void updateTotalCost() {
+        int totalCost = calculateTotalCost(cartItems);
+        totalCostTextView.setText("Total Cost: $" + totalCost);
     }
     private int getProductPrice(String productName){
         switch (productName) {

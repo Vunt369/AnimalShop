@@ -21,10 +21,12 @@ import java.util.ArrayList;
 public class CartAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<CartItem> cartItems;
+    private Runnable updateTotalCostCallback;
 
-    public CartAdapter(Context context, ArrayList<CartItem> cartItems) {
+    public CartAdapter(Context context, ArrayList<CartItem> cartItems, Runnable updateTotalCostCallback) {
         this.context = context;
         this.cartItems = cartItems;
+        this.updateTotalCostCallback = updateTotalCostCallback;
     }
     @Override
     public int getCount() {
@@ -62,6 +64,7 @@ public class CartAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 item.setQuantity(item.getQuantity() + 1);
+                updateTotalCostCallback.run();
                 notifyDataSetChanged();
             }
         });
@@ -71,16 +74,16 @@ public class CartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (item.getQuantity() > 1) {
                     item.setQuantity(item.getQuantity() - 1);
+                    productQuantity.setText(String.valueOf(item.getQuantity()));
+                    updateTotalCostCallback.run();
                     notifyDataSetChanged();
                 } else {
                     new AlertDialog.Builder(context)
                             .setMessage("Do you want to remove this item?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    cartItems.remove(position);
-                                    notifyDataSetChanged();
-                                }
+                            .setPositiveButton("Yes", (dialog, which) -> {
+                                cartItems.remove(position);
+                                updateTotalCostCallback.run();
+                                notifyDataSetChanged();
                             })
                             .setNegativeButton("No", null)
                             .show();
@@ -93,12 +96,10 @@ public class CartAdapter extends BaseAdapter {
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
                         .setMessage("Do you want to remove this item?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                cartItems.remove(position);
-                                notifyDataSetChanged();
-                            }
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            cartItems.remove(position);
+                            updateTotalCostCallback.run();
+                            notifyDataSetChanged();
                         })
                         .setNegativeButton("No", null)
                         .show();
