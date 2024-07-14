@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:weightSum="10"
-             android:orientation="vertical"
-             android:id="@+id/activity_home_page"
-             tools:context=".HomePageActivity">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:id="@+id/activity_home_page"
+    tools:context=".HomePageActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
             android:layout_height="27dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
-            android:layout_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_menu_24" />
@@ -31,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/img_cart"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-
             android:layout_marginEnd="56dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -70,16 +67,19 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1.6"
-        android:layout_gravity="center"
-        >
+        android:layout_gravity="center">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_menu_categories"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        tools:ignore="MissingConstraints" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_menu_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -94,13 +94,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-
             android:background="#E2A48B"
             android:text="SẢN PHẨM"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:gravity="center"/>
-
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -109,19 +107,23 @@
             android:layout_weight="5"
             app:srcCompat="@drawable/baseline_apps_24" />
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4.1"
-        android:layout_gravity="center"
-        >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_products"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/row_product_homepage"
-        tools:ignore="MissingConstraints" />
+        android:layout_gravity="center">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/row_product_homepage"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

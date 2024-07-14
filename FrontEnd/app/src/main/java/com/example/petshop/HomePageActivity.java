@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,28 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductAdapter;
 
-import com.example.petshop.Products.ProductRepository;
-import com.example.petshop.Products.ProductService;
-import com.example.petshop.User.UserClient;
-import com.example.petshop.User.UserRepository;
 import com.example.petshop.cart.CartActivity;
 
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomePageActivity extends AppCompatActivity {
 
     ArrayList<Category> categoriesList;
     ArrayList<Product> productsList;
-    private RecyclerView rvProducts;
-    private ProductAdapter adapterProduct;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -70,11 +58,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         RecyclerView rvProducts = findViewById(R.id.recycler_products);
         productsList = new ArrayList<>();
-
-        adapterProduct = new ProductAdapter(productsList);
-        rvProducts.setAdapter(adapterProduct);
-        rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
-      /*  productsList.add(new Product(R.drawable.yem_co, "Yếm cổ đáng yêu", 35000));
+        productsList.add(new Product(R.drawable.yem_co, "Yếm cổ đáng yêu", 35000));
         productsList.add(new Product(R.drawable.thuc_an_hat_kho, "Thức ăn hạt khô", 230000));
         productsList.add(new Product(R.drawable.sua_tam_joyce, "Sữa tắm JOYCR&DOLCE", 175000));
         productsList.add(new Product(R.drawable.bat_an_nghieng, "Bát ăn nghiêng", 45000));
@@ -82,31 +66,17 @@ public class HomePageActivity extends AppCompatActivity {
         productsList.add(new Product(R.drawable.vong_co_kem_chuong, "Vòng cổ kèm chuông", 35000));
         productsList.add(new Product(R.drawable.balo_cho_meo, "Balô cho mèo", 200000));
         productsList.add(new Product(R.drawable.bo_do_choi_cho_meo, "Bộ đồ chơi cho mèo", 200000));
-*/
 
+        ProductAdapter adapterProduct = new ProductAdapter(productsList);
+        rvProducts.setAdapter(adapterProduct);
+        rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
 
-        fetchProducts();
 
 
     }
-    private void fetchProducts() {
-        ProductService productApi = ProductRepository.getProductService();
-        Call<List<Product>> call = productApi.getProducts();
-        call.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    productsList.addAll(response.body());
-                    adapterProduct.notifyDataSetChanged();
-                }else {
-                    Toast.makeText(HomePageActivity.this, "Failed to load products", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(HomePageActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
+
+
+
 }
