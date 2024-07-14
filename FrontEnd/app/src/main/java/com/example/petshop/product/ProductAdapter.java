@@ -26,11 +26,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         ImageView imageView = convertView.findViewById(R.id.imageView2);
         TextView motaSanpham = convertView.findViewById(R.id.motaSanpham);
+        TextView soluong = convertView.findViewById(R.id.soluong);
         TextView giaSanpham = convertView.findViewById(R.id.giaSanpham);
 
         // Set image and text for each item
         imageView.setImageResource(product.getImageResId());
         motaSanpham.setText(product.getDescription());
+        soluong.setText(product.getQuantity());
         giaSanpham.setText(product.getPrice());
 
 
