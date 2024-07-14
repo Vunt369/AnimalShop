@@ -1,9 +1,7 @@
 package com.example.petshop.cart;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,51 +9,59 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petshop.Products.Product;
+import com.example.petshop.Products.ProductAdapter;
 import com.example.petshop.R;
 import com.example.petshop.checkout.CheckoutActivity;
 
 import java.util.ArrayList;
+
 public class CartActivity extends AppCompatActivity {
     private ListView cartListView;
     private CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private Button checkoutButton;
     private TextView totalCostTextView;
+    private ArrayList<Product> productsList;  // Changed to ArrayList to match the initialization
+    private ProductAdapter adapterProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
         totalCostTextView = findViewById(R.id.totalCostTextView);
-
         cartItems = new ArrayList<>();
-        // Assuming cart is passed as an ArrayList<String>
+
+        // Initialize productsList and adapterProduct
+        productsList = new ArrayList<>();
+        adapterProduct = new ProductAdapter(productsList, this);
+
+        // Assuming cart is passed as an ArrayList<Product>
         Intent intent = getIntent();
         ArrayList<Product> cart = (ArrayList<Product>) intent.getSerializableExtra("cart");
         if (cart != null) {
             for (Product product : cart) {
                 cartItems.add(new CartItem(product, 1));
+                productsList.add(product);  // Add products to productsList
             }
         }
-
 
         cartAdapter = new CartAdapter(this, cartItems, this::updateTotalCost);
         cartListView.setAdapter(cartAdapter);
         updateTotalCost();
 
-
-        checkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-                startActivity(intent);
+        checkoutButton.setOnClickListener(v -> {
+            ArrayList<Product> selectedProducts = new ArrayList<>();
+            for (CartItem cartItem : cartItems) {
+                selectedProducts.add(cartItem.getProduct());
             }
+            Intent intent2 = new Intent(CartActivity.this, CheckoutActivity.class);
+            intent2.putExtra("checkout", selectedProducts);
+            startActivity(intent2);
         });
     }
+
     private void updateTotalCost() {
         int totalCost = calculateTotalCost(cartItems);
         totalCostTextView.setText("Total Cost: $" + totalCost);
@@ -68,6 +74,4 @@ public class CartActivity extends AppCompatActivity {
         }
         return totalCost;
     }
-
-
 }

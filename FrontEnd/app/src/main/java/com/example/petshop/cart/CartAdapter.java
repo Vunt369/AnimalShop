@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.petshop.Products.Product;
 import com.example.petshop.R;
 
@@ -60,8 +61,10 @@ public class CartAdapter extends BaseAdapter {
 
         CartItem item = cartItems.get(position);
         Product product = item.getProduct();
-        productImage.setImageResource(product.getImage());
-        productName.setText(product.getName());
+        Glide.with(context)
+                .load(product.getImageUrl()) // Assuming product.getImage() returns a URL or file path as a string
+                .into(productImage);
+        productName.setText(product.getPname());
         productQuantity.setText(String.valueOf(item.getQuantity()));
         productPrice.setText("Price: $" + product.getPrice());
 
