@@ -8,9 +8,11 @@ import static com.example.petshop.R.id.btn_signin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +20,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.petshop.User.LoginRequest;
+import com.example.petshop.User.User;
+import com.example.petshop.User.UserRepository;
+import com.example.petshop.User.UserService;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText edUsername;
     private EditText edPass;
     private Button btnNotAccount;
     private Button btnSignIn;
 
+UserService userService;
     private final String REQUIRE = "Require";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +50,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         btnNotAccount = (Button) findViewById(R.id.btn_create);
         btnSignIn = (Button) findViewById(R.id.btn_signin) ;
 
+
         btnNotAccount.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(activity_sign_in), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        userService = UserRepository.getUserService();
+
     }
+
 
     private boolean checkInput(){
         if(TextUtils.isEmpty(edUsername.getText().toString())){
@@ -65,9 +78,45 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        try{
+
+            String usename = edUsername.getText().toString();
+            String password = edPass.getText().toString();
+
+
+            LoginRequest loginRequest = new LoginRequest(usename, password);
+
+
+            Call<User> call =  userService.login(loginRequest);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Toast.makeText(SignInActivity.this, "Sign In successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                    } else {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.d("SignUp", "Error body: " + errorBody);
+                            Toast.makeText(SignInActivity.this, "Username or password is invalid " + errorBody, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(SignInActivity.this, "Username or password is invalid " + response.message(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.e("SignIn", "Failure: " + t.getMessage());
+                    Toast.makeText(SignInActivity.this, "Sign In failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Log.d("Loi", e.getMessage());
+        }
+
     }
 
     private void signUpForm(){

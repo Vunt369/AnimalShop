@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petshop.R;
 import com.example.petshop.cart.CartItem;
 import com.example.petshop.categories.Category;
@@ -43,9 +44,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        holder.imgProduct.setImageResource(product.getImage());
-        holder.txtName.setText(product.getName());
+
+        holder.txtName.setText(product.getPname());
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
+        
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageUrl())
+                .into(holder.imgProduct);
 
         /*holder.imgProduct.setOnLongClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -79,6 +84,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             }
             return true;
         });
+
+        
     }
 
     @Override
