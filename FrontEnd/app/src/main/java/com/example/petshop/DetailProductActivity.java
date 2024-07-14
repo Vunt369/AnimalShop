@@ -1,11 +1,6 @@
 package com.example.petshop;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class DetailProductActivity extends AppCompatActivity {
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +19,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+
+
+
 public class DetailProductActivity extends AppCompatActivity {
     private ImageView imgProduct;
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
-    @SuppressLint("MissingInflatedId")
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -72,5 +71,6 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription.setText(productDetail.getDescription());
         Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
     }
-
 }
+
+
