@@ -35,7 +35,8 @@ public class CartActivity extends AppCompatActivity {
 
         cartItems = new ArrayList<>();
         // Assuming cart is passed as an ArrayList<Product>
-        ArrayList<Product> cart = (ArrayList<Product>) getIntent().getSerializableExtra("cart");
+        Intent intent = getIntent();
+        ArrayList<Product> cart = (ArrayList<Product>) intent.getSerializableExtra("cart");
         if (cart != null) {
             for (Product product : cart) {
                 cartItems.add(new CartItem(product, 1));

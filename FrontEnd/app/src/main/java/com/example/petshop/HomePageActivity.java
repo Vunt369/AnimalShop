@@ -35,14 +35,21 @@ public class HomePageActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
         ImageView imgCart = findViewById(R.id.img_cart);
-        imgCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
-                intent.putStringArrayListExtra("cart", adapterProduct.getCartItems());
-                startActivity(intent);
+        imgCart.setOnClickListener(v -> {
+            ArrayList<Product> selectedProducts = new ArrayList<>();
+            for (String productName : adapterProduct.getCartItems()) {
+                for (Product product : productsList) {
+                    if (product.getName().equals(productName)) {
+                        selectedProducts.add(product);
+                        break;
+                    }
+                }
             }
+            Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
+            intent.putExtra("cart", selectedProducts);
+            startActivity(intent);
         });
+
         setupCategories();
         setupProducts();
 
