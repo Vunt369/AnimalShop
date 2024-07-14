@@ -1,20 +1,22 @@
 package com.example.petshop.cart;
 
+import com.example.petshop.Products.Product;
+
 public class CartItem {
-    private String productName;
+    private Product product;
     private int quantity;
 
-    public CartItem(String productName, int quantity) {
-        this.productName = productName;
+    public CartItem(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {

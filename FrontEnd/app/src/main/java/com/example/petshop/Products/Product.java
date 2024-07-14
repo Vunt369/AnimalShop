@@ -1,5 +1,6 @@
 package com.example.petshop.Products;
 
+
 public class Product {
 
     private String pname;

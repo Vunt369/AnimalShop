@@ -2,29 +2,25 @@ package com.example.petshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductAdapter;
-
 import com.example.petshop.Products.ProductRepository;
 import com.example.petshop.Products.ProductService;
 import com.example.petshop.User.UserClient;
 import com.example.petshop.User.UserRepository;
 import com.example.petshop.cart.CartActivity;
-
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
 
@@ -39,23 +35,66 @@ public class HomePageActivity extends AppCompatActivity {
 
     ArrayList<Category> categoriesList;
     ArrayList<Product> productsList;
+
+
+    @Override
     private RecyclerView rvProducts;
     private ProductAdapter adapterProduct;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
+
         ImageView imgCart = findViewById(R.id.img_cart);
-        imgCart.setOnClickListener(new View.OnClickListener() {
+        imgCart.setOnClickListener(v -> {
+            ArrayList<Product> selectedProducts = new ArrayList<>();
+            for (String productName : adapterProduct.getCartItems()) {
+                for (Product product : productsList) {
+                    if (product.getName().equals(productName)) {
+                        selectedProducts.add(product);
+                        break;
+                    }
+                }
+            }
+            Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
+            intent.putExtra("cart", selectedProducts);
+            startActivity(intent);
+        });
+
+        ImageView imgMenu = findViewById(R.id.img_menu);
+        imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
-                startActivity(intent);
+                showPopupMenu(v);
             }
         });
 
+        setupCategories();
+        setupProducts();
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.menu_shop_address) {
+                    Intent intent = new Intent(HomePageActivity.this, ShopAddressActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
 
 
+        });
+        popupMenu.show();
+    }
+
+    private void setupCategories() {
         RecyclerView rvCategories = findViewById(R.id.recycle_menu_categories);
 
         categoriesList = new ArrayList<>();
@@ -67,7 +106,9 @@ public class HomePageActivity extends AppCompatActivity {
         CategoryAdapter adapter = new CategoryAdapter(categoriesList);
         rvCategories.setAdapter(adapter);
         rvCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
 
+    private void setupProducts() {
         RecyclerView rvProducts = findViewById(R.id.recycler_products);
         productsList = new ArrayList<>();
 
@@ -83,6 +124,7 @@ public class HomePageActivity extends AppCompatActivity {
         productsList.add(new Product(R.drawable.balo_cho_meo, "Balô cho mèo", 200000));
         productsList.add(new Product(R.drawable.bo_do_choi_cho_meo, "Bộ đồ chơi cho mèo", 200000));
 */
+
 
 
         fetchProducts();
