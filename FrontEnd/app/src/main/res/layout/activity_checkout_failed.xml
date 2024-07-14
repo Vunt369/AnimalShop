@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="200dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_cross_circle"
+
         app:layout_constraintBottom_toTopOf="@+id/textViewFailure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

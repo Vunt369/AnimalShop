@@ -13,7 +13,6 @@
         android:layout_height="100dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="200dp"
-        android:src="@drawable/ic_check_circle"
         app:layout_constraintBottom_toTopOf="@+id/textViewSuccess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
