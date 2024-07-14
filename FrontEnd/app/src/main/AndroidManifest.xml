@@ -14,7 +14,7 @@
         android:theme="@style/Theme.PetShop"
         tools:targetApi="31">
         <activity
-            android:name=".checkout.CheckoutActivity"
+            android:name=".DetailProductActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,13 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".SignInActivity">
+        <activity android:name=".HomePageActivity">
         </activity>
-        <activity android:name=".DetailProductActivity">
-        </activity>
+       
         <activity android:name=".cart.CartActivity"/>
         <activity android:name=".SignUpActivity">
+        </activity>
+        <activity android:name=".SignInActivity">
         </activity>
         <meta-data
             android:name="preloaded_fonts"
