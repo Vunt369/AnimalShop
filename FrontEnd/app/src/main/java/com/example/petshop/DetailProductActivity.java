@@ -1,5 +1,10 @@
 package com.example.petshop;
 
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DetailProductActivity extends AppCompatActivity {
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
@@ -67,4 +72,5 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription.setText(productDetail.getDescription());
         Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
     }
+
 }

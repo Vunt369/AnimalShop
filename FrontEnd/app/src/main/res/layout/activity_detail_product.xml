@@ -77,7 +77,9 @@
 
 
         <ImageView
+
             android:id="@+id/img_product"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="141dp"
@@ -95,7 +97,9 @@
         >
 
         <TextView
+
             android:id="@+id/txt_nameProduct"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -109,7 +113,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+
             android:id="@+id/txt_price"
+
             android:layout_width="107dp"
             android:layout_height="32dp"
 
@@ -124,6 +130,9 @@
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"
             app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
             app:layout_constraintTop_toBottomOf="@+id/txt_nameProduct" />
 
         <TextView
@@ -139,16 +148,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 
+
         <Button
             android:id="@+id/button"
             android:layout_width="330dp"
             android:layout_height="49dp"
+
             android:layout_marginTop="144dp"
+
             android:layout_marginEnd="28dp"
             android:backgroundTint="#6D341D"
             android:text="Thêm vào giỏ hàng"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <EditText
             android:id="@+id/ed_input_soluong"
@@ -162,6 +175,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toEndOf="@+id/textView8"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Constraints
@@ -197,8 +211,10 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
         android:fontFamily="@font/alata"
         android:text="Text" />
+
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.petshop.Products;
 
 public class ProductDetail {
+
     private int productId;
     private String pname;
     private String description;
@@ -57,4 +58,5 @@ public class ProductDetail {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 }
