@@ -9,19 +9,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.petshop.R;
-import com.example.petshop.User.UserClient;
-import com.example.petshop.product.CheckoutService;
+import com.example.petshop.checkout.SuccessActivity;
 import com.example.petshop.product.Product;
 import com.example.petshop.product.ProductAdapter;
-
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -29,8 +21,6 @@ public class CheckoutActivity extends AppCompatActivity {
     private RadioButton radioButtonCOD, radioButtonBankTransfer;
     private Button buttonCompleteOrder;
     private TextView giaTamtinh, giaPhivanchuyen, giaTongcong;
-
-    private CheckoutService checkoutService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +54,10 @@ public class CheckoutActivity extends AppCompatActivity {
         int shippingFee = 30000;
         giaPhivanchuyen.setText(shippingFee + " VND");
 
-        // Initialize Retrofit and CheckoutService
-        Retrofit retrofit = UserClient.getClient();
-        checkoutService = retrofit.create(CheckoutService.class);
+        // Calculate final total
+        int finalTotal = totalPrice + shippingFee;
+        giaTongcong.setText(finalTotal + " VND");
 
-        // Fetch order information from API
-        fetchOrderInfo();
 
         // Handle complete order button click
         buttonCompleteOrder.setOnClickListener(v -> {
@@ -91,29 +79,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 Toast.makeText(CheckoutActivity.this, "Bank transfer payment is not implemented yet", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(CheckoutActivity.this, "Please select a payment method", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void fetchOrderInfo() {
-        Call<OrderInfo> call = checkoutService.getOrderInfo();
-        call.enqueue(new Callback<OrderInfo>() {
-            @Override
-            public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    OrderInfo orderInfo = response.body();
-                    // Update UI with received data
-                    giaTamtinh.setText(orderInfo.getIntoMoney() + " VND");
-                    giaPhivanchuyen.setText(orderInfo.getTranSportFee() + " VND");
-                    giaTongcong.setText(orderInfo.getTotalPrice() + " VND");
-                } else {
-                    Toast.makeText(CheckoutActivity.this, "Failed to retrieve order information", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<OrderInfo> call, Throwable t) {
-                Toast.makeText(CheckoutActivity.this, "Network error, please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
