@@ -191,6 +191,7 @@
 
         <!-- EditText Họ và tên -->
         <EditText
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -204,6 +205,7 @@
 
         <!-- EditText Số điện thoại -->
         <EditText
+            android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -218,6 +220,7 @@
 
         <!-- EditText Địa chỉ -->
         <EditText
+            android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
