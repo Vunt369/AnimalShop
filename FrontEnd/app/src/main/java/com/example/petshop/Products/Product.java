@@ -1,37 +1,38 @@
 package com.example.petshop.Products;
 
 public class Product {
-    private int image;
-    private String name;
+
+    private String pname;
     private int price;
+    private String imageUrl;
 
-    public Product(int image, String name, int price) {
-        this.image = image;
-        this.name = name;
+    public Product(String pname, int price, String imageUrl) {
+        this.pname = pname;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
-    public int getImage() {
-        return image;
+    public String getPname() {
+        return pname;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
