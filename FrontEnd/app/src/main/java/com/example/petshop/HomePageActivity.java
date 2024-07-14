@@ -41,6 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
     ArrayList<Product> productsList;
     private RecyclerView rvProducts;
     private ProductAdapter adapterProduct;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -76,7 +77,9 @@ public class HomePageActivity extends AppCompatActivity {
         RecyclerView rvProducts = findViewById(R.id.recycler_products);
         productsList = new ArrayList<>();
 
+
         adapterProduct = new ProductAdapter(productsList,this);
+
         rvProducts.setAdapter(adapterProduct);
         rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
       /*  productsList.add(new Product(R.drawable.yem_co, "Yếm cổ đáng yêu", 35000));
@@ -88,6 +91,7 @@ public class HomePageActivity extends AppCompatActivity {
         productsList.add(new Product(R.drawable.balo_cho_meo, "Balô cho mèo", 200000));
         productsList.add(new Product(R.drawable.bo_do_choi_cho_meo, "Bộ đồ chơi cho mèo", 200000));
 */
+
 
 
         fetchProducts();
