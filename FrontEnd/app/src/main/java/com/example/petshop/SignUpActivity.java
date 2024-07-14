@@ -1,14 +1,10 @@
 package com.example.petshop;
 
-import static com.example.petshop.R.id.*;
-import static com.example.petshop.R.id.activity_sign_up;
-import static com.example.petshop.R.id.btn_signin;
-import static com.example.petshop.R.id.btn_signup;
-import static com.example.petshop.R.id.input_confirm_pass;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +12,18 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.petshop.User.User;
+import com.example.petshop.User.UserRepository;
+import com.example.petshop.User.UserService;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class SignUpActivity extends AppCompatActivity  {
     private EditText edUsername;
     private EditText edPass;
 
@@ -30,25 +33,37 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private final String REQUIRE = "Require";
 
+    UserService userService;
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
+
         edUsername = (EditText) findViewById(R.id.input_Name);
         edPass = (EditText) findViewById(R.id.input_pass);
-        btnAlreadyAccount = (Button) findViewById(btn_signup);
+        btnAlreadyAccount = (Button) findViewById(R.id.btn_signin);
         btnSignUp = (Button) findViewById(R.id.btn_signup) ;
-        edConfirm = (EditText) findViewById(input_confirm_pass);
+        edConfirm = (EditText) findViewById(R.id.input_confirm_pass);
 
-        btnAlreadyAccount.setOnClickListener(this);
-        btnSignUp.setOnClickListener(this);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(activity_sign_up), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+      //  btnAlreadyAccount.setOnClickListener();
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUp();
+            }
         });
+
+        btnAlreadyAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInForm();
+            }
+        });
+        userService = UserRepository.getUserService();
+
+        
     }
 
     private boolean checkInput(){
@@ -80,7 +95,44 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        try{
 
+        String usename = edUsername.getText().toString();
+        String password = edPass.getText().toString();
+
+
+        User user = new User(usename, password, null, null, null, null);
+
+
+            Call<User> call =  userService.signUp(user);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Toast.makeText(SignUpActivity.this, "Sign up successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                        startActivity(intent);
+                    } else {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.d("SignUp", "Error body: " + errorBody);
+                            Toast.makeText(SignUpActivity.this, "Sign up failed: " + errorBody, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(SignUpActivity.this, "Sign up failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Log.e("SignUp", "Failure: " + t.getMessage());
+                    Toast.makeText(SignUpActivity.this, "Sign up failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Log.d("Loi", e.getMessage());
+        }
     }
 
     private void signInForm(){
@@ -89,13 +141,5 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         finish();
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == btn_signup) {
-            signUp();
-        } else if (id == btn_signin) {
-            signInForm();
-        }
-    }
+
 }

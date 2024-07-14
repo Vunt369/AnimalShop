@@ -1,0 +1,38 @@
+package com.example.petshop.Products;
+
+public class Product {
+
+    private String pname;
+    private int price;
+    private String imageUrl;
+
+    public Product(String pname, int price, String imageUrl) {
+        this.pname = pname;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+}
