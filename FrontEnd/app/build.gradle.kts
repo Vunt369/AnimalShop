@@ -34,7 +34,8 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
-    implementation(libs.play.services.location)
+    //implementation(libs.play.services.location)
+    implementation("com.google.android.gms:play-services-location:21.3.0")
     implementation ("com.google.android.gms:play-services-maps:18.0.2")
     implementation(libs.material)
     implementation(libs.activity)

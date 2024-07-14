@@ -1,6 +1,8 @@
 package com.example.petshop.Products;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int image;
     private String name;
     private int price;

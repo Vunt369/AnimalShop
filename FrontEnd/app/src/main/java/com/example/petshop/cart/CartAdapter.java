@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.petshop.Products.Product;
 import com.example.petshop.R;
 
 import java.util.ArrayList;
@@ -55,10 +56,11 @@ public class CartAdapter extends BaseAdapter {
         Button deleteButton = convertView.findViewById(R.id.deleteButton);
 
         CartItem item = cartItems.get(position);
-        productImage.setImageResource(item.getImageResource());
-        productName.setText(item.getProductName());
+        Product product = item.getProduct();
+        productImage.setImageResource(product.getImage());
+        productName.setText(product.getName());
         productQuantity.setText(String.valueOf(item.getQuantity()));
-        productPrice.setText("Price: $" + item.getProductPrice());
+        productPrice.setText("Price: $" + product.getPrice());
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override

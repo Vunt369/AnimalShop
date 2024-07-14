@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petshop.R;
+import com.example.petshop.cart.CartItem;
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
 
@@ -46,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.txtName.setText(product.getName());
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
 
-        holder.imgProduct.setOnLongClickListener(v -> {
+        /*holder.imgProduct.setOnLongClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Add to Cart")
                     .setMessage("Do you want to add " + product.getName() + " to the cart?")
@@ -58,6 +59,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .setNegativeButton("No", null)
                     .show();
             return true;
+        });*/
+        holder.imgProduct.setOnLongClickListener(v -> {
+            if (cartItems.contains(product.getName())) {
+                // Product already exists in the cart, update quantity
+                int index = cartItems.indexOf(product.getName());
+                updateCartItemQuantity(index, product.getName()); // Increment quantity by product name
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Add to Cart")
+                        .setMessage("Do you want to add " + product.getName() + " to the cart?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            float price = product.getPrice();
+                            cartItems.add(product.getName());
+                            Toast.makeText(context, product.getName() + " was added to the cart", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+            return true;
         });
     }
 
@@ -67,6 +87,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
     public ArrayList<String> getCartItems() {
         return cartItems;
+    }
+    private void updateCartItemQuantity(int index, String productName) {
+
+        String existingProduct = cartItems.get(index);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
