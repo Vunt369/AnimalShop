@@ -28,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity  {
     private EditText edPass;
 
     private EditText edConfirm;
+    private EditText edEmail;
     private Button btnAlreadyAccount;
     private Button btnSignUp;
 
@@ -46,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity  {
         btnAlreadyAccount = (Button) findViewById(R.id.btn_signin);
         btnSignUp = (Button) findViewById(R.id.btn_signup) ;
         edConfirm = (EditText) findViewById(R.id.input_confirm_pass);
+        edEmail = (EditText) findViewById(R.id.input_email);
 
       //  btnAlreadyAccount.setOnClickListener();
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +84,11 @@ public class SignUpActivity extends AppCompatActivity  {
             return false;
         }
 
+        if(TextUtils.isEmpty(edEmail.getText().toString())){
+            edEmail.setError(REQUIRE);
+            return false;
+        }
+
         if(!TextUtils.equals(edPass.getText().toString(), edConfirm.getText().toString())){
             Toast.makeText(this, "Password are not match", Toast.LENGTH_LONG).show();
             return false;
@@ -99,9 +106,9 @@ public class SignUpActivity extends AppCompatActivity  {
 
         String usename = edUsername.getText().toString();
         String password = edPass.getText().toString();
+        String email = edEmail.getText().toString();
 
-
-        User user = new User(usename, password, null, null, null, null);
+        User user = new User(usename, password, null, email, null, null);
 
 
             Call<User> call =  userService.signUp(user);
