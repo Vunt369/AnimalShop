@@ -8,11 +8,13 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.petshop.Products.Product;
 import com.example.petshop.R;
-import com.example.petshop.checkout.SuccessActivity;
-import com.example.petshop.product.Product;
-import com.example.petshop.product.ProductAdapter;
+import com.example.petshop.cart.CartItem;
+
 import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
@@ -39,27 +41,20 @@ public class CheckoutActivity extends AppCompatActivity {
         radioButtonBankTransfer = findViewById(R.id.radioButtonBankTransfer);
         buttonCompleteOrder = findViewById(R.id.buttonCompleteOrder);
 
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product(R.drawable.chau_cat_vesinh, "Chậu cát cho mèo", "1", "100000")); // Example product
-        // Add more products if needed
+        Intent intent = getIntent();
+        ArrayList<Product> checkout = (ArrayList<Product>) intent.getSerializableExtra("checkout");
+        if (checkout != null) {
+            // You can populate the ListView with product details if needed
+            int totalPrice = calculateTotalPrice(checkout);
+            giaTamtinh.setText(totalPrice + " VND");
 
-        ProductAdapter adapter = new ProductAdapter(this, products);
-        listView.setAdapter(adapter);
+            int shippingFee = 30000;
+            giaPhivanchuyen.setText(shippingFee + " VND");
 
-        // Calculate total price
-        int totalPrice = calculateTotalPrice(products);
-        giaTamtinh.setText(totalPrice + " VND");
+            int finalTotal = totalPrice + shippingFee;
+            giaTongcong.setText(finalTotal + " VND");
+        }
 
-        // Set fixed shipping fee
-        int shippingFee = 30000;
-        giaPhivanchuyen.setText(shippingFee + " VND");
-
-        // Calculate final total
-        int finalTotal = totalPrice + shippingFee;
-        giaTongcong.setText(finalTotal + " VND");
-
-
-        // Handle complete order button click
         buttonCompleteOrder.setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
             String phone = etPhone.getText().toString().trim();
@@ -71,11 +66,9 @@ public class CheckoutActivity extends AppCompatActivity {
             }
 
             if (radioButtonCOD.isChecked()) {
-                // Redirect to success screen when choosing COD
-                Intent intent = new Intent(CheckoutActivity.this, SuccessActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(CheckoutActivity.this, SuccessActivity.class);
+                startActivity(intent1);
             } else if (radioButtonBankTransfer.isChecked()) {
-                // Handle logic for bank transfer payment here
                 Toast.makeText(CheckoutActivity.this, "Bank transfer payment is not implemented yet", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(CheckoutActivity.this, "Please select a payment method", Toast.LENGTH_SHORT).show();
@@ -86,10 +79,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private int calculateTotalPrice(ArrayList<Product> products) {
         int totalPrice = 0;
         for (Product product : products) {
-            int quantity = Integer.parseInt(product.getQuantity());
-            String priceString = product.getPrice().replace(",", ""); // Remove comma separators
-            int price = Integer.parseInt(priceString);
-            totalPrice += quantity * price;
+            totalPrice += product.getPrice();
         }
         return totalPrice;
     }

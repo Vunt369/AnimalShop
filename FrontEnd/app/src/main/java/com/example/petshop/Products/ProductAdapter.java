@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.petshop.DetailProductActivity;
 import com.example.petshop.R;
-import com.example.petshop.cart.CartItem;
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
 
@@ -45,10 +44,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
-
-
         holder.txtName.setText(product.getPname());
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
+
         
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
@@ -78,6 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 /*
         holder.imgProduct.setOnLongClickListener(v -> {
             if (cartItems.contains(product.getPname())) {
+
                 // Product already exists in the cart, update quantity
                 int index = cartItems.indexOf(product.getPname());
                 updateCartItemQuantity(index, product.getPname()); // Increment quantity by product name
@@ -96,20 +95,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             return true;
         });
 
+
         */
+
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
-    }
-    public ArrayList<String> getCartItems() {
-        return cartItems;
-    }
-    private void updateCartItemQuantity(int index, String productName) {
-
-        String existingProduct = cartItems.get(index);
-        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -124,5 +117,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             txtPrice = itemView.findViewById(R.id.txtPrice);
 
         }
+    }
+    public ArrayList<String> getCartItems() {
+        return cartItems;
+    }
+    private void updateCartItemQuantity(int index, String productName) {
+        String existingProduct = cartItems.get(index);
+        notifyDataSetChanged();
     }
 }
