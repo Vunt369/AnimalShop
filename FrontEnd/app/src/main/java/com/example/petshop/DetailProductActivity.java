@@ -34,6 +34,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
+    private String imageUrl;
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ public class DetailProductActivity extends AppCompatActivity {
                 return;
             }
 
-            Product product = new Product(productId, txtName.getText().toString(), Integer.parseInt(txtPrice.getText().toString()), "");
+            Product product = new Product(productId, txtName.getText().toString(), Integer.parseInt(txtPrice.getText().toString()), imageUrl);
             CartManager.getInstance(this).addToCart(product, quantity);
 
             String productName = txtName.getText().toString();
@@ -110,9 +111,10 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private void displayProductDetails(ProductDetail productDetail) {
         txtName.setText(productDetail.getPname());
-        txtPrice.setText(String.valueOf(productDetail.getPrice()) + " VND");
+        txtPrice.setText(String.valueOf(productDetail.getPrice()));
         txtDescription.setText(productDetail.getDescription());
-        Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
+        imageUrl = productDetail.getImageUrl(); // Store the image URL
+        Glide.with(this).load(imageUrl).into(imgProduct);
     }
 
 }
