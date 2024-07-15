@@ -1,20 +1,35 @@
 package com.example.petshop.cart;
 
-import android.content.Intent;
-
 import com.example.petshop.Products.Product;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartManager {
-    private static Intent intent;
+    private static CartManager instance;
+    private ArrayList<CartItem> cartItems;
 
-    public static Intent getIntent() {
-        return intent;
+    private CartManager() {
+        cartItems = new ArrayList<>();
     }
 
-    public static void setIntent(Intent newIntent) {
-        intent = newIntent;
+    public static synchronized CartManager getInstance() {
+        if (instance == null) {
+            instance = new CartManager();
+        }
+        return instance;
+    }
+
+    public ArrayList<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void addToCart(Product product, int quantity) {
+        for (CartItem item : cartItems) {
+            if (item.getProduct().getProductId() == product.getProductId()) {
+                item.setQuantity(item.getQuantity() + quantity);
+                return;
+            }
+        }
+        cartItems.add(new CartItem(product, quantity));
     }
 }
