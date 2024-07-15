@@ -110,7 +110,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private void displayProductDetails(ProductDetail productDetail) {
         txtName.setText(productDetail.getPname());
-        txtPrice.setText(String.valueOf(productDetail.getPrice()) + " VND");
+        txtPrice.setText(String.valueOf(productDetail.getPrice()));
         txtDescription.setText(productDetail.getDescription());
         Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
     }

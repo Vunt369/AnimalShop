@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.petshop.Products.Product;
 import com.example.petshop.R;
 import com.example.petshop.cart.CartActivity;
+import com.example.petshop.cart.CartManager;
 import com.example.petshop.product.CheckoutRepository;
 import com.example.petshop.product.CheckoutRequest;
 import com.example.petshop.product.CheckoutReponse;
@@ -152,6 +153,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onResponse(Call<CheckoutReponse> call, Response<CheckoutReponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(CheckoutActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
+                    CartManager.getInstance(getApplicationContext()).clearCart();
                     Intent intentSuccess = new Intent(CheckoutActivity.this, SuccessActivity.class);
                     startActivity(intentSuccess);
                 } else {
@@ -214,6 +216,7 @@ public class CheckoutActivity extends AppCompatActivity {
             public void onResponse(Call<CheckoutReponse> call, Response<CheckoutReponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String payosUrl = response.body().getData();
+                    CartManager.getInstance(getApplicationContext()).clearCart();
                     Intent intentPayos = new Intent(CheckoutActivity.this, SuccessActivity.class);
                     intentPayos.putExtra("payosUrl", payosUrl);
                     startActivity(intentPayos);
