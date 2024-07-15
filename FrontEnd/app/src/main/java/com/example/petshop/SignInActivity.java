@@ -6,6 +6,7 @@ import static com.example.petshop.R.id.btn_create;
 import static com.example.petshop.R.id.btn_signin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -92,6 +93,11 @@ UserService userService;
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful() && response.body() != null) {
+                        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", usename);
+                        editor.apply();
+
                         Toast.makeText(SignInActivity.this, "Sign In successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(SignInActivity.this, HomePageActivity.class);
                         startActivity(intent);

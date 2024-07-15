@@ -44,6 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.imgCatgory.setImageResource(category.getImage());
 
+
     }
 
     @Override

@@ -3,9 +3,11 @@ package com.example.petshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -42,11 +44,23 @@ public class HomePageActivity extends AppCompatActivity {
 
     private RecyclerView rvProducts;
     private ProductAdapter adapterProduct;
+    private EditText etSearch;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "Guest"); // Default to "Guest" if not found
+
+        TextView txtNameUser = findViewById(R.id.txt_nameUser); // Make sure you have this TextView in your layout
+        txtNameUser.setText(username);
+
+        etSearch = findViewById(R.id.ed_search);
+        ImageView imgSearch = findViewById(R.id.img_search);
+        imgSearch.setOnClickListener(v -> performSearch());
+
         ImageView imgCart = findViewById(R.id.img_cart);
         imgCart.setOnClickListener(v -> {
             ArrayList<Product> selectedProducts = new ArrayList<>();
@@ -99,6 +113,33 @@ public class HomePageActivity extends AppCompatActivity {
                     adapterProduct.notifyDataSetChanged();
                 }else {
                     Toast.makeText(HomePageActivity.this, "Failed to load products", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(HomePageActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void performSearch() {
+        String keywords = etSearch.getText().toString().trim();
+        searchProducts(keywords);
+    }
+
+    private void searchProducts(String keywords) {
+        ProductService productApi = ProductRepository.getProductService();
+        Call<List<Product>> call = productApi.searchProducts(keywords);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    productsList.clear();
+                    productsList.addAll(response.body());
+                    adapterProduct.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(HomePageActivity.this, "No products found", Toast.LENGTH_SHORT).show();
                 }
             }
 
