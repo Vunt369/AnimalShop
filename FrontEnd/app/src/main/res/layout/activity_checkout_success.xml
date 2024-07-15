@@ -16,19 +16,36 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewSuccess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tick_success"/>
 
     <!-- Dòng chữ giao dịch thành công -->
+
+    <!-- Nút quay về trang chủ -->
     <TextView
         android:id="@+id/textViewSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Giao dịch thành công"
+        android:layout_marginTop="28dp"
+        android:text="Đơn hàng đã đặt thành công"
         android:textColor="#4CAF50"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/imageViewTick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewTick" />
+
+    <Button
+        android:id="@+id/buttonGoHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Quay về trang chủ"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewSuccess" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

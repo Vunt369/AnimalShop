@@ -6,7 +6,9 @@ import retrofit2.http.POST;
 
 public interface CheckoutService {
 
-    @POST("Orders")
-    Call<CheckoutReponse> createOrder(@Body CheckoutRequest orderRequest);
+    @POST("Orders/checkout-payos")
+    Call<CheckoutReponse> createOrderPayos(@Body CheckoutRequest orderRequest);
 
+    @POST("Orders/checkout-Cod")
+    Call<CheckoutReponse> createOrderCod(@Body CheckoutRequest orderRequest);
 }
