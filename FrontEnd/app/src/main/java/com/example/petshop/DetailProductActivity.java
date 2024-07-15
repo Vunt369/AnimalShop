@@ -17,6 +17,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductDetail;
 import com.example.petshop.Products.ProductRepository;
 import com.example.petshop.Products.ProductService;
@@ -62,24 +63,16 @@ public class DetailProductActivity extends AppCompatActivity {
                 return;
             }
 
-            // Save the product details to be passed to CartActivity without starting the CartActivity
-            Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
-            intent.putExtra("PRODUCT_ID", productId);
-            intent.putExtra("PRODUCT_NAME", txtName.getText().toString());
-            intent.putExtra("PRODUCT_PRICE", Integer.parseInt(txtPrice.getText().toString()));
-            intent.putExtra("PRODUCT_QUANTITY", quantity);
+            Product product = new Product(productId, txtName.getText().toString(), Integer.parseInt(txtPrice.getText().toString()), "");
+            CartManager.getInstance().addToCart(product, quantity);
 
-            // Show notification that the product has been added to the cart
             String productName = txtName.getText().toString();
             Toast.makeText(DetailProductActivity.this, productName + " has been added to the cart", Toast.LENGTH_SHORT).show();
+        });
 
-            // Store the intent for later use
-            CartManager.setIntent(intent);
-
-            // Optionally, handle transitioning to CartActivity using imgCart
-            imgCart.setOnClickListener(view -> {
-                startActivity(intent);
-            });
+        imgCart.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+            startActivity(intent);
         });
     }
 
