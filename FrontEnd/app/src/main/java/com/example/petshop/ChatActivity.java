@@ -66,7 +66,7 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = new Intent(ChatActivity.this, MessageActivity.class);
         intent.putExtra("CURRENT_USER_ID", 1);
         intent.putExtra("CURRENT_USERNAME", contact.getUsername());
-        intent.putExtra("CURRENT_CONTACT", "TUNGLD");
+        intent.putExtra("CURRENT_CONTACT", "Saller");
         startActivity(intent);
     }
 }
