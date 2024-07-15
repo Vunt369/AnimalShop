@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +33,6 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
-
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +46,7 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.textView12);
         edInputQuantity = findViewById(R.id.ed_input_soluong);
         btnAddToCart = findViewById(R.id.button);
-        imgCart = findViewById(R.id.img_cart);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "Guest"); // Default to "Guest" if not found
-
-        TextView txtNameUser = findViewById(R.id.txt_Nameuser); // Make sure you have this TextView in your layout
-        txtNameUser.setText(username);
 
         int productId = getIntent().getIntExtra("PRODUCT_ID", 1);
         fetchProductDetails(productId);
@@ -72,7 +64,7 @@ public class DetailProductActivity extends AppCompatActivity {
             }
 
             Product product = new Product(productId, txtName.getText().toString(), Integer.parseInt(txtPrice.getText().toString()), "");
-            CartManager.getInstance().addToCart(product, quantity);
+            CartManager.getInstance(this).addToCart(product, quantity);
 
             String productName = txtName.getText().toString();
             Toast.makeText(DetailProductActivity.this, productName + " has been added to the cart", Toast.LENGTH_SHORT).show();
@@ -82,8 +74,6 @@ public class DetailProductActivity extends AppCompatActivity {
             Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
             startActivity(intent);
         });
-
-
     }
 
     private void fetchProductDetails(int productId) {

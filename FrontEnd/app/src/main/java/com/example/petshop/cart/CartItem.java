@@ -4,7 +4,9 @@ import android.os.CountDownTimer;
 
 import com.example.petshop.Products.Product;
 
-public class CartItem {
+import java.io.Serializable;
+
+public class CartItem implements Serializable {
     private Product product;
     private int quantity;
 

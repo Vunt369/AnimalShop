@@ -38,7 +38,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnNotAccount;
     private Button btnSignIn;
 
-UserService userService;
+    UserService userService;
     private final String REQUIRE = "Require";
 
     protected void onCreate(Bundle savedInstanceState) {

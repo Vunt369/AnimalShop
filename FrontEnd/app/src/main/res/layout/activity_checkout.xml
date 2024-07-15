@@ -31,7 +31,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="0.2"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
 
@@ -43,7 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:weightSum="10"
         android:orientation="horizontal">
 
@@ -85,7 +85,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:weightSum="10"
         android:orientation="horizontal">
 
@@ -127,7 +127,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:weightSum="10"
         android:orientation="horizontal">
 
@@ -174,7 +174,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.6"
+        android:layout_weight="3"
         android:orientation="vertical">
 
         <!-- Tiêu đề -->
@@ -199,7 +199,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_color_email"
             android:hint="Họ và tên"
-            android:padding="10dp"
+            android:padding="13dp"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -214,7 +214,7 @@
             android:background="@drawable/background_color_email"
             android:hint="Số điện thoại"
             android:inputType="phone"
-            android:padding="10dp"
+            android:padding="13dp"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -227,7 +227,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/background_color_email"
             android:hint="Địa chỉ"
-            android:padding="10dp"
+            android:padding="13dp"
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -256,29 +256,34 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <!-- RadioButton cho COD -->
-        <RadioButton
-            android:id="@+id/radioButtonCOD"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGroupPaymentMethod"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:text="Thanh toán khi giao hàng (COD)"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:layout_marginBottom="8dp" />
+            android:orientation="vertical">
 
-        <!-- RadioButton cho thanh toán qua ngân hàng -->
-        <RadioButton
-            android:id="@+id/radioButtonBankTransfer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="Thanh toán qua ngân hàng"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+            <!-- RadioButton cho COD -->
+            <RadioButton
+                android:id="@+id/radioButtonCOD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán khi giao hàng (COD)"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:layout_marginBottom="8dp" />
 
+            <!-- RadioButton cho thanh toán qua ngân hàng -->
+            <RadioButton
+                android:id="@+id/radioButtonBankTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh toán qua ngân hàng"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+        </RadioGroup>
     </LinearLayout>
 
     <View
