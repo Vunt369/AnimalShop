@@ -32,6 +32,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
+    private ImageView imgCart;
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,7 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.textView12);
         edInputQuantity = findViewById(R.id.ed_input_soluong);
         btnAddToCart = findViewById(R.id.button);
+        imgCart = findViewById(R.id.img_cart);
 
 
         int productId = getIntent().getIntExtra("PRODUCT_ID", 1);
@@ -74,6 +76,11 @@ public class DetailProductActivity extends AppCompatActivity {
 
             // Store the intent for later use
             CartManager.setIntent(intent); // Create CartState class to store the intent
+        });
+
+        imgCart.setOnClickListener(v -> {
+            Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+            startActivity(intent);
         });
     }
 
