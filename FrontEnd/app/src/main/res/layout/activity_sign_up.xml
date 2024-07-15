@@ -84,6 +84,22 @@
             app:layout_constraintTop_toBottomOf="@+id/input_Name" />
 
         <EditText
+            android:id="@+id/input_email"
+            android:layout_width="350dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="212dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/background_color_email"
+            android:ems="10"
+            android:hint="  your email"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_Name" />
+
+        <EditText
             android:id="@+id/input_pass"
             android:layout_width="350dp"
             android:layout_height="49dp"
@@ -104,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="184dp"
             android:backgroundTint="@android:color/transparent"
             android:text="Already have an account? Log in"
             android:textColor="#5B2A17"
@@ -127,12 +143,13 @@
             android:layout_width="350dp"
             android:layout_height="49dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#6D341D"
             android:text="SIGN UP"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.38"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -169,6 +186,19 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
             android:text="Confirm Password"
+            android:textColor="#733923"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_pass" />
+
+        <TextView
+            android:id="@+id/txt_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="104dp"
+            android:text="Email"
             android:textColor="#733923"
             android:textSize="15dp"
             android:textStyle="bold"
