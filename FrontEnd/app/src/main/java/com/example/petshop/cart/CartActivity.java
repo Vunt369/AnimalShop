@@ -12,6 +12,7 @@ import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductAdapter;
 import com.example.petshop.R;
 import com.example.petshop.checkout.CheckoutActivity;
+import com.example.petshop.product.ProductCheckout;
 
 import java.util.ArrayList;
 
@@ -21,13 +22,14 @@ public class CartActivity extends AppCompatActivity {
     private ArrayList<CartItem> cartItems;
     private Button checkoutButton;
     private TextView totalCostTextView;
-    private ArrayList<Product> productsList;  // Changed to ArrayList to match the initialization
+    private ArrayList<Product> productsList;
     private ProductAdapter adapterProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
         totalCostTextView = findViewById(R.id.totalCostTextView);
@@ -52,13 +54,18 @@ public class CartActivity extends AppCompatActivity {
         updateTotalCost();
 
         checkoutButton.setOnClickListener(v -> {
-            ArrayList<Product> selectedProducts = new ArrayList<>();
+            ArrayList<ProductCheckout> selectedProducts = new ArrayList<>();
             for (CartItem cartItem : cartItems) {
-                selectedProducts.add(cartItem.getProduct());
+                selectedProducts.add(new ProductCheckout(
+                        cartItem.getProduct().getProductId(),
+                        cartItem.getQuantity(),
+                        cartItem.getProduct().getPrice()
+                ));
             }
-            Intent intent2 = new Intent(CartActivity.this, CheckoutActivity.class);
-            intent2.putExtra("checkout", selectedProducts);
-            startActivity(intent2);
+
+            Intent intentCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
+            intentCheckout.putExtra("checkout", selectedProducts);
+            startActivity(intentCheckout);
         });
     }
 
