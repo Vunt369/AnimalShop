@@ -66,14 +66,21 @@ public class CartAdapter extends BaseAdapter {
                 .into(productImage);
         productName.setText(product.getPname());
         productQuantity.setText(String.valueOf(item.getQuantity()));
-        productPrice.setText("Price: $" + product.getPrice());
+        productPrice.setText("Giá tiền: " + product.getPrice() + " VND");
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item.setQuantity(item.getQuantity() + 1);
-                updateTotalCostCallback.run();
-                notifyDataSetChanged();
+                if (item.getQuantity() < 49) { // Ensure quantity is less than 50
+                    item.setQuantity(item.getQuantity() + 1);
+                    updateTotalCostCallback.run();
+                    notifyDataSetChanged();
+                } else {
+                    new AlertDialog.Builder(context)
+                            .setMessage("Quantity cannot exceed 50")
+                            .setPositiveButton("OK", null)
+                            .show();
+                }
             }
         });
 
@@ -156,6 +163,13 @@ public class CartAdapter extends BaseAdapter {
                                         notifyDataSetChanged();
                                     })
                                     .show();
+                        } else if (quantity > 50) {
+                            new AlertDialog.Builder(context)
+                                    .setMessage("Quantity cannot exceed 50")
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                            item.setQuantity(50);
+                            productQuantity.setText(String.valueOf(item.getQuantity()));
                         } else {
                             item.setQuantity(quantity);
                             updateTotalCostCallback.run();

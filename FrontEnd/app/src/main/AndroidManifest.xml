@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,19 +29,21 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".SignInActivity">
-        </activity>
-        <activity android:name=".DetailProductActivity">
+<!--        <activity android:name=".HomePageActivity">-->
+<!--        </activity>-->
+        <activity android:name=".checkout.CheckoutActivity">
         </activity>
         <activity android:name=".cart.CartActivity"/>
         <activity android:name=".SignUpActivity">
         </activity>
+
         <activity android:name=".checkout.SuccessActivity">
         </activity>
         <activity android:name=".checkout.CheckoutActivity">
+
+        <activity android:name=".DetailProductActivity">
+
         </activity>
-<!--        <activity android:name=".HomePageActivity">-->
-<!--        </activity>-->
 
         <meta-data
             android:name="preloaded_fonts"

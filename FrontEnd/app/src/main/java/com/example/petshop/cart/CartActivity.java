@@ -19,11 +19,12 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
     private ListView cartListView;
     private CartAdapter cartAdapter;
-    private ArrayList<CartItem> cartItems;
     private Button checkoutButton;
     private TextView totalCostTextView;
+
     private ArrayList<Product> productsList;
     private ProductAdapter adapterProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +34,8 @@ public class CartActivity extends AppCompatActivity {
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
         totalCostTextView = findViewById(R.id.totalCostTextView);
-        cartItems = new ArrayList<>();
 
-        // Initialize productsList and adapterProduct
-        productsList = new ArrayList<>();
-        adapterProduct = new ProductAdapter(productsList, this);
-
-        // Assuming cart is passed as an ArrayList<Product>
-        Intent intent = getIntent();
-        ArrayList<Product> cart = (ArrayList<Product>) intent.getSerializableExtra("cart");
-        if (cart != null) {
-            for (Product product : cart) {
-                cartItems.add(new CartItem(product, 1));
-                productsList.add(product);  // Add products to productsList
-            }
-        }
+        ArrayList<CartItem> cartItems = CartManager.getInstance().getCartItems();
 
         cartAdapter = new CartAdapter(this, cartItems, this::updateTotalCost);
         cartListView.setAdapter(cartAdapter);
@@ -66,12 +54,13 @@ public class CartActivity extends AppCompatActivity {
             Intent intentCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
             intentCheckout.putExtra("checkout", selectedProducts);
             startActivity(intentCheckout);
+
         });
     }
 
     private void updateTotalCost() {
-        int totalCost = calculateTotalCost(cartItems);
-        totalCostTextView.setText("Total Cost: $" + totalCost);
+        int totalCost = calculateTotalCost(CartManager.getInstance().getCartItems());
+        totalCostTextView.setText("Tổng giá tiền: " + totalCost + " VND");
     }
 
     private int calculateTotalCost(ArrayList<CartItem> cartItems) {

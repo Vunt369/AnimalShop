@@ -4,13 +4,16 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private int productId; // Add an ID field
+
+    private int productId; 
     private String pname;
     private int price;
     private String imageUrl;
 
-    public Product(int productId, String pname, int price, String imageUrl) {
-        this.productId = productId;
+
+
+    public Product(String pname, int price, String imageUrl) {
+
         this.pname = pname;
         this.price = price;
         this.imageUrl = imageUrl;
