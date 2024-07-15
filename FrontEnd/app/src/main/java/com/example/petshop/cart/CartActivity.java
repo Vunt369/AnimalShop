@@ -77,7 +77,7 @@ public class CartActivity extends AppCompatActivity {
 
     private void updateTotalCost() {
         int totalCost = calculateTotalCost(cartItems);
-        totalCostTextView.setText("Total Cost: $" + totalCost);
+        totalCostTextView.setText("Tổng giá tiền: " + totalCost + " VND");
     }
 
     private int calculateTotalCost(ArrayList<CartItem> cartItems) {
