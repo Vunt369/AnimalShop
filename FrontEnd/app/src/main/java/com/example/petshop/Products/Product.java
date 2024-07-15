@@ -1,22 +1,19 @@
 package com.example.petshop.Products;
 
-
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private int productId;
+
+
+    private int productId; 
     private String pname;
     private int price;
     private String imageUrl;
 
-    public Product(int productId, String pname, int price, String imageUrl) {
-        this.productId = productId;
-        this.pname = pname;
-        this.price = price;
-        this.imageUrl = imageUrl;
-    }
+
 
     public Product(String pname, int price, String imageUrl) {
+
         this.pname = pname;
         this.price = price;
         this.imageUrl = imageUrl;
