@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,8 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
+    private SharedPreferences sharedPreferences;
+    private static final String CART_PREFERENCES = "CartPreferences";
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,21 +56,25 @@ public class DetailProductActivity extends AppCompatActivity {
         btnAddToCart.setOnClickListener(v -> {
             String quantityText = edInputQuantity.getText().toString();
             if (quantityText.isEmpty()) {
-                Toast.makeText(DetailProductActivity.this, "Please enter a quantity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailProductActivity.this, "Vui lòng nhập số lượng sản phẩm", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!quantityText.matches("\\d+")) { // Regex to match digits only
+                Toast.makeText(DetailProductActivity.this, "Vui lòng nhập số và có giá trị lớn hơn 0", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             int quantity = Integer.parseInt(quantityText);
             if (quantity < 1 || quantity > 50) {
-                Toast.makeText(DetailProductActivity.this, "Quantity must be between 1 and 50", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailProductActivity.this, "Số lượng sản phẩm phải ít hơn 50 và lớn hơn 1 sản phẩm", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Product product = new Product(productId, txtName.getText().toString(), Integer.parseInt(txtPrice.getText().toString()), "");
-            CartManager.getInstance().addToCart(product, quantity);
+            CartManager.getInstance(DetailProductActivity.this).addToCart(product, quantity);
 
             String productName = txtName.getText().toString();
-            Toast.makeText(DetailProductActivity.this, productName + " has been added to the cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DetailProductActivity.this, productName + " vừa được thêm vào giỏ ", Toast.LENGTH_SHORT).show();
         });
 
         imgCart.setOnClickListener(view -> {
@@ -102,5 +109,6 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription.setText(productDetail.getDescription());
         Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
     }
+
 
 }
