@@ -20,30 +20,19 @@
             android:layout_width="47dp"
             android:layout_height="27dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:layout_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_menu_24" />
 
         <ImageView
-            android:id="@+id/img_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/img_cart"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_search_24" />
-
-        <ImageView
             android:id="@+id/img_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="12dp"
 
-            android:layout_marginEnd="56dp"
+            android:layout_marginEnd="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_shopping_cart_24" />
@@ -52,11 +41,20 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_person_24" />
+
+        <TextView
+            android:id="@+id/txt_Nameuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,7 +91,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.4"
+        android:layout_weight="3.5"
         >
 
         <TextView
@@ -119,7 +117,8 @@
             android:layout_width="107dp"
             android:layout_height="32dp"
 
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:background="#E67932"
             android:fontFamily="@font/alata"
             android:text="Price"
@@ -127,12 +126,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
             app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
             app:layout_constraintTop_toBottomOf="@+id/txt_nameProduct" />
 
         <TextView
@@ -144,6 +138,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/alata"
             android:text="Số lượng"
+            android:textSize="15sp"
             android:textColor="#733923"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
@@ -153,13 +148,12 @@
             android:id="@+id/button"
             android:layout_width="330dp"
             android:layout_height="49dp"
-            android:layout_marginTop="156dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginTop="168dp"
+            android:layout_marginEnd="28dp"
             android:backgroundTint="#6D341D"
             android:text="Thêm vào giỏ hàng"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <EditText
             android:id="@+id/ed_input_soluong"
@@ -179,7 +173,7 @@
     <androidx.constraintlayout.widget.Constraints
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.3">
+        android:layout_weight="1.2">
 
     </androidx.constraintlayout.widget.Constraints>
 
@@ -187,7 +181,7 @@
         android:id="@+id/textView10"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-
+        android:layout_marginTop="20sp"
         android:text="MÔ TẢ"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"

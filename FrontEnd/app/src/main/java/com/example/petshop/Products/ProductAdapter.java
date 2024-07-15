@@ -44,7 +44,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.txtName.setText(product.getPname());
+        String truncatedName = product.getPname().length() > 15 ? product.getPname().substring(0, 15) + "..." : product.getPname();
+        holder.txtName.setText(truncatedName);
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
 
         
