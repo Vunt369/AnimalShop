@@ -12,15 +12,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="1"
         android:background="#E2A48B">
 
         <ImageView
             android:id="@+id/img_menu"
-            android:layout_width="47dp"
-            android:layout_height="27dp"
+            android:layout_width="54dp"
+            android:layout_height="49dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,21 +28,21 @@
 
         <ImageView
             android:id="@+id/img_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_width="50dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="16dp"
 
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_shopping_cart_24" />
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="37dp"
+            android:layout_height="32dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_person_24" />
@@ -63,7 +63,8 @@
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1.8"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/anh_homepage_to" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,7 +115,7 @@
 
             android:id="@+id/txt_price"
 
-            android:layout_width="107dp"
+            android:layout_width="150dp"
             android:layout_height="32dp"
 
             android:layout_marginStart="8dp"

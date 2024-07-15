@@ -46,7 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         Product product = productList.get(position);
         String truncatedName = product.getPname().length() > 15 ? product.getPname().substring(0, 15) + "..." : product.getPname();
         holder.txtName.setText(truncatedName);
-        holder.txtPrice.setText(String.valueOf(product.getPrice()));
+        holder.txtPrice.setText(String.valueOf(product.getPrice()) + " VND");
 
         
         Glide.with(holder.itemView.getContext())
