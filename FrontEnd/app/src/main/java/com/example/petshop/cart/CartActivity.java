@@ -1,116 +1,90 @@
 package com.example.petshop.cart;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.petshop.Products.Product;
+import com.example.petshop.Products.ProductAdapter;
+import com.example.petshop.Products.ProductDetail;
 import com.example.petshop.R;
 import com.example.petshop.checkout.CheckoutActivity;
 
 import java.util.ArrayList;
+
 public class CartActivity extends AppCompatActivity {
     private ListView cartListView;
     private CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private Button checkoutButton;
     private TextView totalCostTextView;
+    private ArrayList<Product> productsList;  // Changed to ArrayList to match the initialization
+    private ProductAdapter adapterProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
         cartListView = findViewById(R.id.cartListView);
         checkoutButton = findViewById(R.id.checkoutButton);
         totalCostTextView = findViewById(R.id.totalCostTextView);
-
         cartItems = new ArrayList<>();
-        // Assuming cart is passed as an ArrayList<String>
-        ArrayList<String> cart = getIntent().getStringArrayListExtra("cart");
-        if(cart!=null){
-            for (String item : cart) {
-                int imageResource = getImageResourceForProduct(item);
-                int productPrice = getProductPrice(item);
-                cartItems.add(new CartItem(item, 1, imageResource, productPrice));
+
+        // Initialize productsList and adapterProduct
+        productsList = new ArrayList<>();
+        adapterProduct = new ProductAdapter(productsList, this);
+
+        // Assuming cart is passed as an ArrayList<Product>
+        Intent intent = getIntent();
+        ArrayList<Product> cart = (ArrayList<Product>) intent.getSerializableExtra("cart");
+        if (cart != null) {
+            for (Product product : cart) {
+                cartItems.add(new CartItem(product, 1));
+                productsList.add(product);  // Add products to productsList
             }
         }
 
+        // Handle intent from DetailProductActivity
+        int productId = intent.getIntExtra("PRODUCT_ID", -1);
+        String productName = intent.getStringExtra("PRODUCT_NAME");
+        int productPrice = intent.getIntExtra("PRODUCT_PRICE", -1);
+        int productQuantity = intent.getIntExtra("PRODUCT_QUANTITY", -1);
+
+        if (productId != -1 && productName != null && productPrice != -1 && productQuantity != -1) {
+            Product product = new Product(productName, productPrice, "");
+            cartItems.add(new CartItem(product, productQuantity));
+            productsList.add(product);
+        }
 
         cartAdapter = new CartAdapter(this, cartItems, this::updateTotalCost);
         cartListView.setAdapter(cartAdapter);
         updateTotalCost();
 
-
-        checkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-                startActivity(intent);
+        checkoutButton.setOnClickListener(v -> {
+            ArrayList<Product> selectedProducts = new ArrayList<>();
+            for (CartItem cartItem : cartItems) {
+                selectedProducts.add(cartItem.getProduct());
             }
+            Intent intent2 = new Intent(CartActivity.this, CheckoutActivity.class);
+            intent2.putExtra("checkout", selectedProducts);
+            startActivity(intent2);
         });
     }
+
     private void updateTotalCost() {
         int totalCost = calculateTotalCost(cartItems);
         totalCostTextView.setText("Total Cost: $" + totalCost);
     }
-    private int getProductPrice(String productName){
-        switch (productName) {
-            case "Yếm cổ đáng yêu":
-                return 35000;
-            case "Thức ăn hạt khô":
-                return 230000;
-            case "Sữa tắm JOYCR&DOLCE":
-                return 175000;
-            case "Bát ăn nghiêng":
-                return 45000;
-            case "Bánh thưởng CATNIP":
-                return 30000;
-            case "Vòng cổ kèm chuông":
-                return 35000;
-            case "Balô cho mèo":
-                return 200000;
-            case "Bộ đồ chơi cho mèo":
-                return 200000;
-            default:
-                return 0; // Default price if product name is not found
-        }
-    }
+
     private int calculateTotalCost(ArrayList<CartItem> cartItems) {
         int totalCost = 0;
         for (CartItem item : cartItems) {
-            totalCost += item.getProductPrice() * item.getQuantity();
+            totalCost += item.getProduct().getPrice() * item.getQuantity();
         }
         return totalCost;
     }
-    private int getImageResourceForProduct(String productName) {
-        switch (productName) {
-            case "Yếm cổ đáng yêu":
-                return R.drawable.yem_co;
-            case "Thức ăn hạt khô":
-                return R.drawable.thuc_an_hat_kho;
-            case "Sữa tắm JOYCR&DOLCE":
-                return R.drawable.sua_tam_joyce;
-            case "Bát ăn nghiêng":
-                return R.drawable.bat_an_nghieng;
-            case "Bánh thưởng CATNIP":
-                return R.drawable.banh_thuong_catnipo;
-            case "Vòng cổ kèm chuông":
-                return R.drawable.vong_co_kem_chuong;
-            case "Balô cho mèo":
-                return R.drawable.balo_cho_meo;
-            case "Bộ đồ chơi cho mèo":
-                return R.drawable.bo_do_choi_cho_meo;
-            default:
-                // Default image resource if product name doesn't match known cases
-                return R.drawable.chan_meo_tach_nen;
-        }
-    }
-
 }

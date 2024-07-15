@@ -1,37 +1,22 @@
 package com.example.petshop.cart;
 
+import com.example.petshop.Products.Product;
+
 public class CartItem {
-    private String productName;
+    private Product product;
     private int quantity;
-    private int imageResource;
-    private int productPrice;
 
-    public CartItem(String productName, int quantity, int imageResource, int productPrice) {
-        this.productName = productName;
+    public CartItem(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
-        this.imageResource = imageResource;
-        this.productPrice = productPrice;
-    }
-    public int getImageResource() {
-        return imageResource;
     }
 
-    public void setImageResource(int imageResource) {
-        this.imageResource = imageResource;
-    }
-    public int getProductPrice() {
-        return productPrice;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
-    }
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {

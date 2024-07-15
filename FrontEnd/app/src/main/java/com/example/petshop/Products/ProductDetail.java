@@ -1,18 +1,29 @@
 package com.example.petshop.Products;
 
+public class ProductDetail {
 
-import java.io.Serializable;
-
-public class Product implements Serializable {
-
+    private int productId;
     private String pname;
+    private String description;
     private int price;
+
     private String imageUrl;
 
-    public Product(String pname, int price, String imageUrl) {
+    public ProductDetail(int productId, String pname, String description, int price,  String imageUrl) {
+        this.productId = productId;
         this.pname = pname;
+        this.description = description;
         this.price = price;
+
         this.imageUrl = imageUrl;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getPname() {
@@ -23,6 +34,14 @@ public class Product implements Serializable {
         this.pname = pname;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -31,6 +50,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -38,4 +58,5 @@ public class Product implements Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 }

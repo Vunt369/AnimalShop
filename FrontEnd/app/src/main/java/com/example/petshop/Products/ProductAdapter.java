@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petshop.R;
 import com.example.petshop.categories.Category;
 import com.example.petshop.categories.CategoryAdapter;
@@ -41,32 +42,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = productList.get(position);
-
-        holder.imgProduct.setImageResource(product.getImage());
-        holder.txtName.setText(product.getName());
+        holder.txtName.setText(product.getPname());
         holder.txtPrice.setText(String.valueOf(product.getPrice()));
-
         holder.imgProduct.setOnLongClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Add to Cart")
-                    .setMessage("Do you want to add " + product.getName() + " to the cart?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        float price = product.getPrice();
-                        cartItems.add(product.getName());
-                        Toast.makeText(context, product.getName() + " was added to the cart", Toast.LENGTH_SHORT).show();
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
+            if (cartItems.contains(product.getPname())){
+                // Product already exists in the cart, update quantity
+                int index = cartItems.indexOf(product.getPname());
+                updateCartItemQuantity(index, product.getPname()); // Increment quantity by product name
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Add to Cart")
+                        .setMessage("Do you want to add " + product.getPname() + " to the cart?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            float price = product.getPrice();
+                            cartItems.add(product.getPname());
+                            Toast.makeText(context, product.getPname() + " was added to the cart", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
             return true;
         });
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageUrl())
+                .into(holder.imgProduct);
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
-    }
-    public ArrayList<String> getCartItems() {
-        return cartItems;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -81,5 +85,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             txtPrice = itemView.findViewById(R.id.txtPrice);
 
         }
+    }
+    public ArrayList<String> getCartItems() {
+        return cartItems;
+    }
+    private void updateCartItemQuantity(int index, String productName) {
+        String existingProduct = cartItems.get(index);
+        notifyDataSetChanged();
     }
 }
