@@ -45,6 +45,7 @@ public class DetailProductActivity extends AppCompatActivity {
         edInputQuantity = findViewById(R.id.ed_input_soluong);
         btnAddToCart = findViewById(R.id.button);
 
+
         int productId = getIntent().getIntExtra("PRODUCT_ID", 1);
         fetchProductDetails(productId);
         btnAddToCart.setOnClickListener(v -> {
