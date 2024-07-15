@@ -32,7 +32,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
-    private ImageView imgCart;
+
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
