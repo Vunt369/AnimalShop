@@ -16,6 +16,7 @@ import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductAdapter;
 import com.example.petshop.R;
 import com.example.petshop.checkout.CheckoutActivity;
+import com.example.petshop.product.ProductCheckout;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,10 @@ public class CartActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private SharedPreferences sharedPreferences;
     private static final String CART_PREFERENCES = "CartPreferences";
+
+    private ArrayList<Product> productsList;
+    private ProductAdapter adapterProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +53,19 @@ public class CartActivity extends AppCompatActivity {
         updateTotalCost();
 
         checkoutButton.setOnClickListener(v -> {
-            ArrayList<Product> selectedProducts = new ArrayList<>();
+            ArrayList<ProductCheckout> selectedProducts = new ArrayList<>();
             for (CartItem cartItem : cartItems) {
-                selectedProducts.add(cartItem.getProduct());
+                selectedProducts.add(new ProductCheckout(
+                        cartItem.getProduct().getProductId(),
+                        cartItem.getQuantity(),
+                        cartItem.getProduct().getPrice()
+                ));
             }
-            Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-            intent.putExtra("checkout", selectedProducts);
-            startActivity(intent);
+
+            Intent intentCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
+            intentCheckout.putExtra("checkout", selectedProducts);
+            startActivity(intentCheckout);
+
         });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
