@@ -66,7 +66,7 @@ public class CartAdapter extends BaseAdapter {
                 .into(productImage);
         productName.setText(product.getPname());
         productQuantity.setText(String.valueOf(item.getQuantity()));
-        productPrice.setText("Price: $" + product.getPrice());
+        productPrice.setText("Giá tiền: " + product.getPrice() + " VND");
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
