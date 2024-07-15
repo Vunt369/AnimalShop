@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petshop.Products.Product;
 import com.example.petshop.Products.ProductAdapter;
+import com.example.petshop.Products.ProductDetail;
 import com.example.petshop.R;
 import com.example.petshop.checkout.CheckoutActivity;
 
@@ -45,6 +46,18 @@ public class CartActivity extends AppCompatActivity {
                 cartItems.add(new CartItem(product, 1));
                 productsList.add(product);  // Add products to productsList
             }
+        }
+
+        // Handle intent from DetailProductActivity
+        int productId = intent.getIntExtra("PRODUCT_ID", -1);
+        String productName = intent.getStringExtra("PRODUCT_NAME");
+        int productPrice = intent.getIntExtra("PRODUCT_PRICE", -1);
+        int productQuantity = intent.getIntExtra("PRODUCT_QUANTITY", -1);
+
+        if (productId != -1 && productName != null && productPrice != -1 && productQuantity != -1) {
+            Product product = new Product(productName, productPrice, "");
+            cartItems.add(new CartItem(product, productQuantity));
+            productsList.add(product);
         }
 
         cartAdapter = new CartAdapter(this, cartItems, this::updateTotalCost);
