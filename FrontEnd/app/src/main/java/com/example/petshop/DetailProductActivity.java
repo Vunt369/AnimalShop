@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailProductActivity extends AppCompatActivity {
-    private ImageView imgProduct;
+    private ImageView imgProduct, imgCart;
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
@@ -39,11 +39,13 @@ public class DetailProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_product);
 
         imgProduct = findViewById(R.id.img_product);
+        imgCart = findViewById(R.id.img_cart);
         txtName = findViewById(R.id.txt_nameProduct);
         txtPrice = findViewById(R.id.txt_price);
         txtDescription = findViewById(R.id.textView12);
         edInputQuantity = findViewById(R.id.ed_input_soluong);
         btnAddToCart = findViewById(R.id.button);
+
 
         int productId = getIntent().getIntExtra("PRODUCT_ID", 1);
         fetchProductDetails(productId);
@@ -55,8 +57,8 @@ public class DetailProductActivity extends AppCompatActivity {
             }
 
             int quantity = Integer.parseInt(quantityText);
-            if (quantity <= 0) {
-                Toast.makeText(DetailProductActivity.this, "Quantity must be greater than 0", Toast.LENGTH_SHORT).show();
+            if (quantity < 1 || quantity > 50) {
+                Toast.makeText(DetailProductActivity.this, "Quantity must be between 1 and 50", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -72,7 +74,12 @@ public class DetailProductActivity extends AppCompatActivity {
             Toast.makeText(DetailProductActivity.this, productName + " has been added to the cart", Toast.LENGTH_SHORT).show();
 
             // Store the intent for later use
-            CartManager.setIntent(intent); // Create CartState class to store the intent
+            CartManager.setIntent(intent);
+
+            // Optionally, handle transitioning to CartActivity using imgCart
+            imgCart.setOnClickListener(view -> {
+                startActivity(intent);
+            });
         });
     }
 
