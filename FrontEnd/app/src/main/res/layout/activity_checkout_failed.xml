@@ -17,19 +17,32 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewFailure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/x_fail"/>
 
     <!-- Dòng chữ giao dịch thất bại -->
     <TextView
         android:id="@+id/textViewFailure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Giao dịch thất bại"
+        android:layout_marginTop="24dp"
+        android:text="Đặt hàng không thành công"
         android:textColor="#F44336"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/imageViewCross"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCross" />
+    <Button
+        android:id="@+id/buttonGoHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
+        android:backgroundTint="#C92D40"
+        android:text="Quay về trang chủ"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewFailure" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
