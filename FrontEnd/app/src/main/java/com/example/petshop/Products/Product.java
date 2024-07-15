@@ -25,13 +25,6 @@ public class Product implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Product(int productId, String pname, int price, String imageUrl) {
-        this.productId = productId;
-        this.pname = pname;
-        this.price = price;
-        this.imageUrl = imageUrl;
-    }
-
     public int getProductId() {
         return productId;
     }

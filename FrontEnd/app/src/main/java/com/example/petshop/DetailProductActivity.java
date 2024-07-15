@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailProductActivity extends AppCompatActivity {
-    private ImageView imgProduct, imgCart;
+    private ImageView imgProduct, imgCart, imgHome;
     private TextView txtName, txtPrice,  txtDescription;
     private EditText edInputQuantity;
     private Button btnAddToCart;
@@ -46,7 +47,13 @@ public class DetailProductActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.textView12);
         edInputQuantity = findViewById(R.id.ed_input_soluong);
         btnAddToCart = findViewById(R.id.button);
+        imgHome= findViewById(R.id.img_menu);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "Guest"); // Default to "Guest" if not found
+
+        TextView txtNameUser = findViewById(R.id.txt_Nameuser); // Make sure you have this TextView in your layout
+        txtNameUser.setText(username);
 
         int productId = getIntent().getIntExtra("PRODUCT_ID", 1);
         fetchProductDetails(productId);
@@ -74,6 +81,11 @@ public class DetailProductActivity extends AppCompatActivity {
             Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
             startActivity(intent);
         });
+        imgHome.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailProductActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void fetchProductDetails(int productId) {
@@ -98,7 +110,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private void displayProductDetails(ProductDetail productDetail) {
         txtName.setText(productDetail.getPname());
-        txtPrice.setText(String.valueOf(productDetail.getPrice()));
+        txtPrice.setText(String.valueOf(productDetail.getPrice()) + " VND");
         txtDescription.setText(productDetail.getDescription());
         Glide.with(this).load(productDetail.getImageUrl()).into(imgProduct);
     }
