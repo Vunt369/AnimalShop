@@ -2,6 +2,7 @@ package com.example.petshop.Products;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.petshop.DetailProductActivity;
 import com.example.petshop.R;
 import com.example.petshop.cart.CartItem;
 import com.example.petshop.categories.Category;
@@ -52,7 +54,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 .load(product.getImageUrl())
                 .into(holder.imgProduct);
 
-        /*holder.imgProduct.setOnLongClickListener(v -> {
+       holder.itemView.setOnLongClickListener(v -> {
+            Intent intent = new Intent(context, DetailProductActivity.class);
+            intent.putExtra("PRODUCT_ID", product.getProductId());
+            context.startActivity(intent);
+            return true; // Indicate that the event is handled
+        });
+       /*
+        holder.imgProduct.setOnLongClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Add to Cart")
                     .setMessage("Do you want to add " + product.getName() + " to the cart?")
@@ -64,20 +73,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .setNegativeButton("No", null)
                     .show();
             return true;
-        });*/
+        });
+        */
+/*
         holder.imgProduct.setOnLongClickListener(v -> {
-            if (cartItems.contains(product.getName())) {
+            if (cartItems.contains(product.getPname())) {
                 // Product already exists in the cart, update quantity
-                int index = cartItems.indexOf(product.getName());
-                updateCartItemQuantity(index, product.getName()); // Increment quantity by product name
+                int index = cartItems.indexOf(product.getPname());
+                updateCartItemQuantity(index, product.getPname()); // Increment quantity by product name
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Add to Cart")
-                        .setMessage("Do you want to add " + product.getName() + " to the cart?")
+                        .setMessage("Do you want to add " + product.getPname() + " to the cart?")
                         .setPositiveButton("Yes", (dialog, which) -> {
                             float price = product.getPrice();
-                            cartItems.add(product.getName());
-                            Toast.makeText(context, product.getName() + " was added to the cart", Toast.LENGTH_SHORT).show();
+                            cartItems.add(product.getPname());
+                            Toast.makeText(context, product.getPname() + " was added to the cart", Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("No", null)
                         .show();
@@ -85,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             return true;
         });
 
-        
+        */
     }
 
     @Override

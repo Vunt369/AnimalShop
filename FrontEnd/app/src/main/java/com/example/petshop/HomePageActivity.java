@@ -37,7 +37,6 @@ public class HomePageActivity extends AppCompatActivity {
     ArrayList<Product> productsList;
 
 
-    @Override
     private RecyclerView rvProducts;
     private ProductAdapter adapterProduct;
 
@@ -51,7 +50,7 @@ public class HomePageActivity extends AppCompatActivity {
             ArrayList<Product> selectedProducts = new ArrayList<>();
             for (String productName : adapterProduct.getCartItems()) {
                 for (Product product : productsList) {
-                    if (product.getName().equals(productName)) {
+                    if (product.getPname().equals(productName)) {
                         selectedProducts.add(product);
                         break;
                     }
@@ -112,21 +111,11 @@ public class HomePageActivity extends AppCompatActivity {
         RecyclerView rvProducts = findViewById(R.id.recycler_products);
         productsList = new ArrayList<>();
 
-        adapterProduct = new ProductAdapter(productsList);
+        adapterProduct = new ProductAdapter(productsList, this);
         rvProducts.setAdapter(adapterProduct);
         rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
-      /*  productsList.add(new Product(R.drawable.yem_co, "Yếm cổ đáng yêu", 35000));
-        productsList.add(new Product(R.drawable.thuc_an_hat_kho, "Thức ăn hạt khô", 230000));
-        productsList.add(new Product(R.drawable.sua_tam_joyce, "Sữa tắm JOYCR&DOLCE", 175000));
-        productsList.add(new Product(R.drawable.bat_an_nghieng, "Bát ăn nghiêng", 45000));
-        productsList.add(new Product(R.drawable.banh_thuong_catnipo, "Bánh thưởng CATNIP", 30000));
-        productsList.add(new Product(R.drawable.vong_co_kem_chuong, "Vòng cổ kèm chuông", 35000));
-        productsList.add(new Product(R.drawable.balo_cho_meo, "Balô cho mèo", 200000));
-        productsList.add(new Product(R.drawable.bo_do_choi_cho_meo, "Bộ đồ chơi cho mèo", 200000));
-*/
 
-
-
+        
         fetchProducts();
 
 
