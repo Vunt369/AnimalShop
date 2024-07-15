@@ -34,8 +34,10 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
-
-
+    implementation ("com.microsoft.signalr:signalr:5.0.12")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.squareup.retrofit:retrofit:2.0.0-beta2")
+    implementation ("com.squareup.retrofit:converter-gson:2.0.0-beta2")
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)

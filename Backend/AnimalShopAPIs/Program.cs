@@ -1,6 +1,8 @@
 using _2Sport_BE.Repository.Models;
 using AnimalShopAPIs.Services;
+using API_PRM.Hub;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,23 @@ builder.Services.AddDbContext<PRM392DBContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed((host) => true);
+    });
+});
+
+
+// Add SignalR
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,8 +45,14 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Map SignalR hubs
+app.MapHub<ChatHub>("/chathub");
+
 
 app.Run();

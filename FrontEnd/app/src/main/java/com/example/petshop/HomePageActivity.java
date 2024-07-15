@@ -3,6 +3,8 @@ package com.example.petshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -46,7 +48,17 @@ public class HomePageActivity extends AppCompatActivity {
         setupCategories();
         setupProducts();
 
+        ImageButton startChatButton = findViewById(R.id.chatBubble);
+        startChatButton.setOnClickListener(v -> chatNow());
 
+    }
+
+    private void chatNow() {
+        Intent intent = new Intent(HomePageActivity.this, MessageActivity.class);
+        intent.putExtra("CURRENT_USER_ID", 1); // Replace with actual user ID
+        intent.putExtra("CURRENT_USERNAME", "User1"); // Replace with actual username
+        intent.putExtra("CURRENT_CONTACT", "TUNGLD"); // Replace with actual contact
+        startActivity(intent);
     }
 
     private void setupCategories() {

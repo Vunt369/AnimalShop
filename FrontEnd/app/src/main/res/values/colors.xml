@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tab_active_color_dark">#FED36A</color>
+    <color name="main_them_dark">#212832</color>
+    <color name="main_theme_background">#D3D3D3</color>
+    <color name="green">#12AC27</color>
+    <color name="background_mess">#91867E</color>
 </resources>

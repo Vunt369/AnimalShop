@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/activity_message">
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/previewPickedImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="100dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/background_mess"
+        android:paddingVertical="20dp">
+
+        <ImageButton
+            android:id="@+id/btn_go_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight=".2"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrowleft" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imv_msg_detail_avatar"
+                android:layout_width="47dp"
+                android:layout_height="47dp"
+                android:src="@drawable/avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_msg_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Sale Support"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_msg_detail_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Online"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textColor="@color/green"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <ImageButton
+                android:id="@+id/btn_video_call"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/video" />
+
+            <ImageButton
+                android:id="@+id/btn_audio_call"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/callcalling" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcy_messages"
+        android:minHeight="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:paddingHorizontal="16dp"
+        android:background="@color/white"
+        android:paddingBottom="120dp"
+        tools:listitem="@layout/message_item_receiver" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:background="@color/background_mess"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:background="@color/background_mess"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
+
+            <ImageButton
+                android:id="@+id/btn_chose_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/background_mess"
+                android:src="@drawable/elementequal" />
+
+            <EditText
+                android:id="@+id/edt_input_msg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
+                android:layout_weight="1"
+                android:background="@color/background_mess"
+                android:backgroundTint="@color/white"
+                android:hint="Type a message"
+                android:textColor="#8CAAB9"
+                android:textColorHint="#8CAAB9"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/background_mess"
+                android:src="@drawable/send" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:background="@color/background_mess"
+            android:gravity="center"
+            android:paddingVertical="4dp">
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/background_mess"
+                android:src="@drawable/microphone2" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

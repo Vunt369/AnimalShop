@@ -121,7 +121,13 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/row_product_homepage"
         tools:ignore="MissingConstraints" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageButton
+        android:id="@+id/chatBubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_messenger"
+        android:layout_gravity="end"/>
 </LinearLayout>
